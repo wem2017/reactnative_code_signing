@@ -17,41 +17,25 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm install
-      - run: echo "APP_STORE_CONNECT_TEAM_ID ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}" > myfile.txt
-      - run: echo "DEVELOPER_APP_ID  ${{ secrets.DEVELOPER_APP_ID }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "DEVELOPER_APP_IDENTIFIER  ${{ secrets.DEVELOPER_APP_IDENTIFIER }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "DEVELOPER_PORTAL_TEAM_ID  ${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "FASTLANE_APPLE_ID  ${{ secrets.FASTLANE_APPLE_ID }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD  ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "MATCH_PASSWORD  ${{ secrets.KEYCHAIN_PASSWORD }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "GIT_AUTHORIZATION  ${{ secrets.GIT_AUTHORIZATION }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "PROVISIONING_PROFILE_SPECIFIER  ${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "KEYCHAIN_PASSWORD  ${{ secrets.KEYCHAIN_PASSWORD }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "KEYCHAIN_NAME  ${{ secrets.KEYCHAIN_NAME }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "DEVELOPER_EXTENSION_IDENTIFIER  ${{ secrets.DEVELOPER_EXTENSION_IDENTIFIER }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - run: echo "PROVISIONING_PROFILE_EXTENSION_SPECIFIER  ${{ secrets.PROVISIONING_PROFILE_EXTENSION_SPECIFIER }}" | cat - myfile.txt > temp && mv temp myfile.txt
-      - uses: actions/upload-artifact@v2
-        with:
-          name: release android
-          path: myfile.txt
+          
       #ios
-      # - name: Deploy to TestFlight via Fastlane
-      #   uses: maierj/fastlane-action@v1.4.0
-      #   with:
-      #     lane: appstore
-      #     subdirectory: ios
-      #   env:
-      #     APP_STORE_CONNECT_TEAM_ID: "${{ secrets.APP_STORE_CONNECT_TEAM_ID }}"
-      #     DEVELOPER_APP_ID: "${{ secrets.DEVELOPER_APP_ID }}"
-      #     DEVELOPER_APP_IDENTIFIER: "${{ secrets.DEVELOPER_APP_IDENTIFIER }}"
-      #     DEVELOPER_PORTAL_TEAM_ID: "${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}"
-      #     FASTLANE_APPLE_ID: "${{ secrets.FASTLANE_APPLE_ID }}"
-      #     FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: "${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}"
-      #     MATCH_PASSWORD: "${{ secrets.KEYCHAIN_PASSWORD }}"
-      #     GIT_AUTHORIZATION: "${{ secrets.GIT_AUTHORIZATION }}"
-      #     PROVISIONING_PROFILE_SPECIFIER: "${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}"
-      #     KEYCHAIN_NAME: "${{ secrets.KEYCHAIN_NAME }}"
-      #     KEYCHAIN_PASSWORD: "${{ secrets.KEYCHAIN_PASSWORD }}"
+      - name: Deploy to TestFlight via Fastlane
+        uses: maierj/fastlane-action@v1.4.0
+        with:
+          lane: appstore
+          subdirectory: ios
+        env:
+          APP_STORE_CONNECT_TEAM_ID: "${{ secrets.APP_STORE_CONNECT_TEAM_ID }}"
+          DEVELOPER_APP_ID: "${{ secrets.DEVELOPER_APP_ID }}"
+          DEVELOPER_APP_IDENTIFIER: "${{ secrets.DEVELOPER_APP_IDENTIFIER }}"
+          DEVELOPER_PORTAL_TEAM_ID: "${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}"
+          FASTLANE_APPLE_ID: "${{ secrets.FASTLANE_APPLE_ID }}"
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: "${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}"
+          MATCH_PASSWORD: "${{ secrets.KEYCHAIN_PASSWORD }}"
+          GIT_AUTHORIZATION: "${{ secrets.GIT_AUTHORIZATION }}"
+          PROVISIONING_PROFILE_SPECIFIER: "${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}"
+          KEYCHAIN_NAME: "${{ secrets.KEYCHAIN_NAME }}"
+          KEYCHAIN_PASSWORD: "${{ secrets.KEYCHAIN_PASSWORD }}"
 
       #android
       # - run: flutter build apk
